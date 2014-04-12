@@ -24,14 +24,14 @@ public class UserController {
 		return "login";
 	}
 
-	@Log("µÇÂ½")
+	@Log("ç™»é™†")
 	@RequestMapping("/login")
 	public String login(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
 
 		User user = this.userService.findUser(username, password);
 		if (user != null) {
-			logger.info("µÇÂ½³É¹¦");
+			logger.info("ï¿½ï¿½Â½ï¿½É¹ï¿½");
 			return "main";
 		}
 		return "redirect:/user/tologin";
@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	
-	@Log("×¢²á")
+	@Log("æ³¨å†Œ")
 	@RequestMapping("/registe")
 	public String saveUser(@RequestParam("username") String username,
 			@RequestParam("password") String password) {

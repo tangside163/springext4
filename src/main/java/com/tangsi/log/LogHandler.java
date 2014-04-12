@@ -3,10 +3,8 @@ package com.tangsi.log;
 import java.lang.reflect.Method;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tangsi.log.annotation.Log;
@@ -30,22 +28,22 @@ public class LogHandler {
 		if (logAnno != null) {
 			Class<?> clazz = method.getDeclaringClass();
 			String url = "";
-			//类上的注解
+			//绫荤骇鍒殑url鏄犲皠
 			RequestMapping classrequestMapping = clazz
 					.getAnnotation(RequestMapping.class);
 			if(classrequestMapping != null ) {
 				if(classrequestMapping.value().length == 0) {
-					url += "/" +clazz.getName();  //以类名作为路径
+					url += "/" +clazz.getName();  //
 				}else {
 					url += classrequestMapping.value()[0];
 				}
 			}
-			//方法上的注解
+			//鏂规硶绾у埆鐨剈rl鏄犲皠
 			RequestMapping methodRequestMapping = method
 					.getAnnotation(RequestMapping.class);
 			
 			if(methodRequestMapping != null ) {
-				if(methodRequestMapping.value().length == 0) { //以方法名作为路径
+				if(methodRequestMapping.value().length == 0) { //
 					url += "/" + method.getName();
 				}else {
 					url +=methodRequestMapping.value()[0];

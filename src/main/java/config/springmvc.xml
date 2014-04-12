@@ -25,6 +25,9 @@
         <property name="suffix" value=".jsp"/> 
     </bean> 
     
+    <!-- 静态资源过滤 -->
+	<mvc:resources mapping="/resources/**" location="/resources/"/>     
+    <mvc:default-servlet-handler /> 
     
     <bean id="logBean" class="com.tangsi.log.LogHandler"></bean>
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
