@@ -24,7 +24,7 @@ public class UserController {
 		return "login";
 	}
 
-	@Log
+	@Log("µÇÂ½")
 	@RequestMapping("/login")
 	public String login(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	
-	@Log
+	@Log("×¢²á")
 	@RequestMapping("/registe")
 	public String saveUser(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
@@ -51,8 +51,8 @@ public class UserController {
 		if(username != null && !username.isEmpty() && password != null && !password.isEmpty())  {
 			
 			User user = new User();
-			user.setName("tangdu");
-			user.setPassword("123");
+			user.setName(username);
+			user.setPassword(password);
 			this.userService.saveUser(user);
 		}
 		
