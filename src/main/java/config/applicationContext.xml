@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+<context:component-scan base-package="com.tangsi">
+	</context:component-scan>
+
+	<!-- 引入配置文件 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- c3p0连接池 -->
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" 
+		destroy-method="close"> <property name="driverClass" value="${jdbc.driverClassName}"> 
+		</property> <property name="jdbcUrl" value="${jdbc.url}"> </property> <property 
+		name="user" value="${jdbc.username}"> </property> <property name="password" 
+		value="${jdbc.password}"> </property> 连接池中保留的最小连接数。 <property name="minPoolSize" 
+		value="10" /> 连接池中保留的最大连接数。Default: 15 <property name="maxPoolSize" value="100" 
+		/> 最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 <property name="maxIdleTime" 
+		value="1800" /> 当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 <property name="acquireIncrement" 
+		value="3" /> <property name="maxStatements" value="1000" /> <property name="initialPoolSize" 
+		value="10" /> 每60秒检查所有连接池中的空闲连接。Default: 0 <property name="idleConnectionTestPeriod" 
+		value="60" /> 定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 <property name="acquireRetryAttempts" 
+		value="30" /> <property name="breakAfterAcquireFailure" value="true" /> <property 
+		name="testConnectionOnCheckout" value="false" /> </bean> -->
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}">
+		</property>
+		<property name="url" value="${jdbc.url}">
+		</property>
+		<property name="username" value="${jdbc.username}">
+		</property>
+		<property name="password" value="${jdbc.password}">
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.tangsi.pojo"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<!-- <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> -->
+			</props>
+		</property>
+	</bean>
+	<!-- <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+		<property name="dataSource" ref="dataSource" /> </bean> -->
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 基于AOP的声明式事务 -->
+	<aop:config expose-proxy="true" proxy-target-class="true">
+		<aop:pointcut id="aopPointcut"
+			expression="execution(* com.tangsi.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="aopPointcut" />
+	</aop:config>
+	
+	
+	<!-- below are some configurations about activiti -->
+	  <bean id="activitiDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">  
+    <property name="driverClass" value="org.h2.Driver" />  
+    <property name="url" value="jdbc:h2:mem:activiti;DB_CLOSE_DELAY=1000" />  
+    <property name="username" value="sa" />  
+    <property name="password" value="" />  
+  </bean>  
+    
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+    <property name="dataSource" ref="activitiDataSource" />  
+  </bean>  
+  
+ <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">  
+    <property name="dataSource" ref="activitiDataSource" />  
+    <property name="transactionManager" ref="transactionManager" />  
+    <property name="databaseSchemaUpdate" value="true" />  
+    <property name="mailServerHost" value="localhost" />  
+    <property name="mailServerPort" value="5025" />  
+    <property name="jpaCloseEntityManager" value="true" />  
+    <property name="jobExecutorActivate" value="false" /> 
+    <property name="activityFontName" value="宋体"></property>
+    <property name="labelFontName" value="宋体"></property> 
+  </bean>  
+    
+  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">  
+    <property name="processEngineConfiguration" ref="processEngineConfiguration" />  
+  </bean>  
+    
+  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />  
+  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />  
+  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />  
+  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />  
+  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" /> 
+	
+</beans>
