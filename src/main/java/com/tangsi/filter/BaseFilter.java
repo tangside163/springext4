@@ -20,7 +20,7 @@ public class BaseFilter implements Filter{
 			FilterChain chain) throws IOException, ServletException {
 		
 		ServletContext application = request.getServletContext();
-		//½«ÏîÄ¿¸ùÂ·¾¶·ÅÈëÉÏÏÂÎÄÖĞ
+		//è®¾ç½®æ ¹è·¯å¾„
 		String base = application.getContextPath();
 		
 		request.setAttribute("base", base);

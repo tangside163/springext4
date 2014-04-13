@@ -174,7 +174,7 @@
 	<body id="home">
 		<div class="rain">
 			<div class="border start">
-				<form>
+				<form action="${base}/user/login" method="post">
 					<label for="username">Email</label>
 					<input name="username" type="text" placeholder="用户名"/>
 					<label for="password">Password</label>

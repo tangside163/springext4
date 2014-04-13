@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/java/config/applicationContext.xml</config>
 		<config>src/main/java/config/springmvc.xml</config>
+		<config>src/main/java/config/shiro-spring.xml</config>
 	</configs>
 	<configSets>
 	</configSets>
