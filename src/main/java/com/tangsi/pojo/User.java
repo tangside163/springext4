@@ -46,6 +46,9 @@ public class User implements Serializable {
 			inverseJoinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "roleid") })
 	private Collection<Role> roles;
 
+	@Column
+	private String nickName;
+
 	public Collection<Role> getRoles() {
 		return roles;
 	}
@@ -92,6 +95,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNickName() {
+		return this.nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

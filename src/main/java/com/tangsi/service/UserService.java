@@ -23,5 +23,14 @@ public class UserService {
 	public void deleteUser(User user) {
 		this.userDao.delete(user);
 	}
+
+	/**
+	 * 根据用户名获得用户信息
+	 * @param username
+	 * @return
+	 */
+	public User getUserByUsername(String username) {
+		return this.userDao.findByUsername(username);
+	}
 	
 }
