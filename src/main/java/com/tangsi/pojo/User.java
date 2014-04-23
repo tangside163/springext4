@@ -41,7 +41,7 @@ public class User implements Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST })
 	@JsonIgnore
-	@JoinTable(name = "auth_usesr_role", joinColumns = { 
+	@JoinTable(name = "auth_user_role", joinColumns = { 
 			@JoinColumn(name = "userid", referencedColumnName = "userid") },
 			inverseJoinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "roleid") })
 	private Collection<Role> roles;
