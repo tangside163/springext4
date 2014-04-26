@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 @Table(name = "auth_user")
 @Entity
@@ -25,6 +27,7 @@ public class User implements Serializable {
 
 	@Id
 	@Column(name="userid")
+	@GenericGenerator(strategy="native",name="useridgenerator")
 	private long id;
 
 	@Column
@@ -41,10 +44,13 @@ public class User implements Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST })
 	@JsonIgnore
-	@JoinTable(name = "auth_usesr_role", joinColumns = { 
-			@JoinColumn(name = "userid", referencedColumnName = "userid") },
-			inverseJoinColumns = { @JoinColumn(name = "roleid", referencedColumnName = "roleid") })
+	@JoinTable(name = "auth_user_role", joinColumns = { 
+			@JoinColumn(name = "fk_userid", referencedColumnName = "userid") },
+			inverseJoinColumns = { @JoinColumn(name = "fk_roleid", referencedColumnName = "roleid") })
 	private Collection<Role> roles;
+
+	@Column
+	private String nickName;
 
 	public Collection<Role> getRoles() {
 		return roles;
@@ -92,6 +98,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNickName() {
+		return this.nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 }

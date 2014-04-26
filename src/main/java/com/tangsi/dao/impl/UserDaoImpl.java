@@ -50,4 +50,14 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	public void delete(User user) {
 	}
 
+	public User findByUsername(String username) {
+		Query query = this.getSession().createQuery(" from User where name=?");
+		query.setString(0, username);
+		List<User> users = query.list();
+		if(users != null && !users.isEmpty()) {
+			return users.get(0);
+		}
+		return null;
+	}
+
 }

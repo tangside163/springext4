@@ -55,7 +55,7 @@ public class UserController {
 	        }catch (AuthenticationException e) {
 	            logger.error("登录失败错误信息:"+e);
 	            token.clear();
-	            return "redirect:/login";
+	            return "redirect:/user/tologin";
 	        }
 		
 	}

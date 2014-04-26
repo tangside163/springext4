@@ -26,29 +26,29 @@
 		<property name="unauthorizedUrl" value="/error" />  <!-- 没有权限默认跳转的页面 -->
 		<property name="filterChainDefinitions">
 			<value>
-				/login = anon
-				/validateCode = anon
-				/** = authc
+				/user/tologin=anon   <!-- 指向登录页面的链接不用验证 -->
+				/user/login=anon     <!-- 进行登录的链接也不用验证 -->
+				/** = authc          <!-- 其余所有链接都需要验证 -->  
 			</value>
 		</property>
 	</bean>
 
 
 	<!-- securityManager -->
-	<bean
+	<!-- <bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
 		<property name="staticMethod"
 			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
 		<property name="arguments" ref="securityManager" />
-	</bean>
+	</bean> -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 	<!-- Enable Shiro Annotations for Spring-configured beans. Only run after -->
 	<!-- the lifecycleBeanProcessor has run: -->
-	<bean
+	<!-- <bean
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
 		depends-on="lifecycleBeanPostProcessor" >
-		<property name="proxyTargetClass" value="true"></property>	  <!-- 此属性非常重要，否则会导致spring的注入功能失败 -->
-	</bean>
+		<property name="proxyTargetClass" value="true"></property>	 
+	</bean>  -->
 	<bean
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />

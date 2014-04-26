@@ -11,6 +11,7 @@ package com.tangsi.pojo;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -37,6 +40,7 @@ public class Permission implements Serializable {
 	private String description;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pmss")
+	@Basic(fetch = FetchType.LAZY)
 	private Collection<Role> roles;
 
 	public Long getId() {

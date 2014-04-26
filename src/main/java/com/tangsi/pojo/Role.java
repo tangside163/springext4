@@ -32,14 +32,14 @@ public class Role implements Serializable{
     @Column
     private String description;
     
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     @Basic(fetch = FetchType.LAZY)
     private Collection<User> users;
     
-    @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name = "auth_role_permission", 
-            joinColumns = { @JoinColumn(name = "roleid", updatable = false) }, 
-            inverseJoinColumns = { @JoinColumn(name = "pmsid", updatable = false) })
+           joinColumns = { @JoinColumn(name = "fk_roleid",referencedColumnName="roleid") }, 
+           inverseJoinColumns = { @JoinColumn(name = "fk_pmsid",referencedColumnName="pmsid") })
     private Collection<Permission> pmss;
     
     public Long getId() {
