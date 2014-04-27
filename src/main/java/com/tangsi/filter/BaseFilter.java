@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 public class BaseFilter implements Filter{
 
@@ -18,8 +19,9 @@ public class BaseFilter implements Filter{
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest httpreRequest = (HttpServletRequest) request;
 		
-		ServletContext application = request.getServletContext();
+		ServletContext application = httpreRequest.getSession().getServletContext();
 		//设置根路径
 		String base = application.getContextPath();
 		

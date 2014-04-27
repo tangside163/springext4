@@ -2,10 +2,12 @@ package com.tangsi.pojo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -13,7 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
+
 
 @Table(name = "auth_user")
 @Entity
@@ -26,7 +28,6 @@ public class User implements Serializable {
 
 	@Id
 	@Column(name="userid")
-	@GenericGenerator(strategy="native",name="useridgenerator")
 	private long id;
 
 	@Column
@@ -41,21 +42,21 @@ public class User implements Serializable {
 	@Column(name = "phone")
 	private String phone;
 
-	@ManyToMany(cascade = { CascadeType.PERSIST })
+	@ManyToMany(cascade = { CascadeType.PERSIST },fetch=FetchType.EAGER)
 	@JsonIgnore
 	@JoinTable(name = "auth_user_role", joinColumns = { 
 			@JoinColumn(name = "fk_userid", referencedColumnName = "userid") },
 			inverseJoinColumns = { @JoinColumn(name = "fk_roleid", referencedColumnName = "roleid") })
-	private Collection<Role> roles;
+	private List<Role> roles;
 
 	@Column
 	private String nickName;
 
-	public Collection<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Collection<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 
