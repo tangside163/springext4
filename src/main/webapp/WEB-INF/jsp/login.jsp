@@ -88,6 +88,8 @@
 						//var cookietime = new Date()+3600*24*5;  //五天
 						$.cookie("tangsi", username+"_"+password,{path:"/",expires:5}); //五天有效期
 					}
+				}else {
+					$.cookie("tangsi",null); //删除cookie
 				}
 				return true;
 			});
