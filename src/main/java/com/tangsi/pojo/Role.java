@@ -17,6 +17,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.GenericGenerators;
+
 @Entity
 @Table(name = "auth_role")
 public class Role implements Serializable{
@@ -24,7 +27,8 @@ public class Role implements Serializable{
     private static final long serialVersionUID = 6177417450707400228L;
     
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY,generator="roleidgenerator")
+    @GenericGenerator(name="roleidgenerator",strategy="native")
     @Column(name="roleid")
     private Long id;
     @Column

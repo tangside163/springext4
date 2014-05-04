@@ -19,10 +19,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "auth_permission")
@@ -31,7 +31,8 @@ public class Permission implements Serializable {
 	private static final long serialVersionUID = -8792590494605747957L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GenericGenerator(name="permissionidgenerator",strategy="native")
+	@GeneratedValue(strategy = GenerationType.IDENTITY,generator="permissionidgenerator")
 	@Column(name = "pmsid")
 	private Long id;
 	@Column

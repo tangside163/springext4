@@ -20,7 +20,7 @@
 	body {
   padding-top: 100px;
   padding-bottom: 40px;
-  background-color: #eee;
+  background: #eee url(../resources/image/home.jpg) no-repeat;
 }
 
 .form-signin {
@@ -65,7 +65,7 @@
 		//自动登录
 		function autoLogin() {
 			var cookie = $.cookie("tangsi");
-			if(cookie != null) {
+			if(cookie != null && cookie != undefined) {
 				$("#username").val(cookie.split("_")[0]);
 				$("#password").val(cookie.split("_")[1]);
 				$("button[type=submit]").click();
@@ -89,7 +89,7 @@
 						$.cookie("tangsi", username+"_"+password,{path:"/",expires:5}); //五天有效期
 					}
 				}else {
-					$.cookie("tangsi",null); //删除cookie
+					$.cookie("tangsi",null,{expires:-1}); //删除cookie
 				}
 				return true;
 			});
