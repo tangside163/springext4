@@ -18,13 +18,13 @@
 <style type="text/css">
 	
 	body {
-  padding-top: 100px;
+  padding-top: 150px;
   padding-bottom: 40px;
   background: #eee url(../resources/image/home.jpg) no-repeat;
 }
 
 .form-signin {
-  max-width: 330px;
+  max-width: 600px;
   padding: 15px;
   margin: 0 auto;
 }
@@ -48,21 +48,30 @@
   z-index: 2;
 }
 .form-signin input[type="text"] {
+  display:inline; 
+  width:300px;	
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 .form-signin input[type="password"] {
+  display:inline;	
+  width:300px;
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-signin button {
+  display:block;
+  width:300px;
 }
 	
 </style>
 
 	<script type="text/javascript">
 		
-		//自动登录
+		/* //自动登录
 		function autoLogin() {
 			var cookie = $.cookie("tangsi");
 			if(cookie != null && cookie != undefined) {
@@ -94,7 +103,7 @@
 				return true;
 			});
 			
-		});
+		}); */
 	
 	</script>
 
@@ -103,11 +112,15 @@
 	<div class="container">
 
       <form class="form-signin" role="form" method="post" action="${base}/user/login">
-        <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus>
-        <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
+       <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus><span>${usernameMsg}</span>
+        <input id="password" type="password" name="password" class="form-control" placeholder="Password" required><span>${pwdMsg}</span>
+        <!-- 
         <label class="checkbox">
           <input  id="remember-me" type="checkbox" value="yes" name="remember-me"> Remember me
-        </label>
+        </label> 
+        -->
+        <br/>
+        <a href="${base}/user/toregiste">registe here &gt;&gt;</a>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
       </form>
 

@@ -28,6 +28,8 @@
 			<value>
 				/user/tologin=anon   <!-- 指向登录页面的链接不用验证 -->
 				/user/login=anon     <!-- 进行登录的链接也不用验证 -->
+				/user/toregiste=anon <!-- 注册不用验证  -->
+				/registe/save=anon   <!-- 注册提交 -->
 				/resources/**=anon   <!-- 资源文件不需要验证 -->
 				/** = authc,roles[超级管理员]         <!-- 其余所有链接都需要验证 -->  
 			</value>

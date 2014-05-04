@@ -1,6 +1,5 @@
 package com.tangsi.controller;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +24,16 @@ public class UserController {
 	private static Logger logger = Logger.getLogger(UserController.class);
 	
 	private static final String REMEMBER_YES = "yes";
+	
+	/**
+	 * 允许最大密码输入错误数，默认为3，超过了则锁定用户
+	 */
+	private static final int MAX_ERROR_TIMES = 3;
+	
+	/**
+	 * 解除锁定的间隔时间,默认10分钟
+	 */
+	private static final long UNLOCK_INTERVAL_TIME = 10*60*1000;
 	
 	/**
 	 * 自动登录的cookie最大保存时间,默认一个月
@@ -54,9 +63,8 @@ public class UserController {
 	@RequestMapping("/login")
 	public String login(@RequestParam("username") String username,
 			@RequestParam("password") String password,HttpServletRequest request,HttpServletResponse response) {
-		User user = null;
 		
-		Cookie[] cookies = request.getCookies();
+	/*	Cookie[] cookies = request.getCookies();
     	if(cookies != null && cookies.length > 0) {
     		for(Cookie cookie : cookies) {  //从cookie读取账户密码
     			if(REMEMBER_COOKIE_NAME.equals(cookie.getName())) {
@@ -65,17 +73,51 @@ public class UserController {
     				 password = content.split("_")[1];
     			}
     		}
-    	}
+    	}*/
 		
-    	user = this.userService.getUserByUsername(username);
-		if(user == null) {
+    	User user1 = this.userService.getUserByUsername(username);
+		if(user1 == null) {
 			request.setAttribute("usernameMsg", "该用户不存在");
 			return "forward:/user/tologin";
 		}else {
-			user = this.userService.findUser(username, password);
-			if(user == null) {
-				request.setAttribute("pwdMsg", "密码错误");
+			
+			if(user1.getErrorTimes() != 0 && user1.getLockedAt() != 0) {
+				request.setAttribute("usernameMsg", "该用户已被锁定，请联系管理员");
 				return "forward:/user/tologin";
+			}
+			
+			User user2 = this.userService.findUser(username, password);
+			if(user2 == null) {
+				int errorTimes = user1.getErrorTimes();//密码错误次数
+				
+				if(errorTimes < MAX_ERROR_TIMES) {
+					errorTimes++;
+				}
+				if(errorTimes == MAX_ERROR_TIMES) {
+					request.setAttribute("pwdMsg", "密码3次错误该用户已被锁定，请联系管理员");
+				}else {
+					request.setAttribute("pwdMsg", "密码错误");
+				}
+				
+				user1.setLockedAt(System.currentTimeMillis());
+				user1.setErrorTimes(errorTimes);
+				this.userService.update(user1);
+				
+				return "forward:/user/tologin";
+			}else {
+				
+				//登录成功要解除锁定
+				if(user1.getErrorTimes() != 0 && user1.getLockedAt() != 0) {
+					long lockedAt = user1.getLockedAt();
+					//10分钟之后解锁
+					if(System.currentTimeMillis() - lockedAt > UNLOCK_INTERVAL_TIME) {
+						user1.setErrorTimes(0);
+						user1.setLockedAt(0);
+						this.userService.update(user1);
+					}
+					
+				}
+				
 			}
 		}
     	
@@ -85,14 +127,6 @@ public class UserController {
 	        token.setRememberMe(true);
 	        try {
 	        	subject.login(token);
-	        	
-	        	/*if(REMEMBER_YES.equals((String)request.getParameter("remember-me"))) {//记住我功能
-	        		Cookie cookie = new Cookie(REMEMBER_COOKIE_NAME, username+"_"+password); //保存账户密码,应加密 ，以后改进
-	        		cookie.setMaxAge(REMEMBER_COOKIE_LIFETIME);  //设置cookie生命周期为一个月
-	        		cookie.setPath("/");
-	        		response.addCookie(cookie);//将cookie写回客户端浏览器 
-	        	}*/
-	        	
 	            return "main";
 	        }catch (AuthenticationException e) {
 	            logger.error("登录失败错误信息:"+e);
@@ -109,7 +143,7 @@ public class UserController {
 	
 	
 	@Log("注册")
-	@RequestMapping("/registe")
+	@RequestMapping("/registe/save")
 	public String saveUser(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
 		

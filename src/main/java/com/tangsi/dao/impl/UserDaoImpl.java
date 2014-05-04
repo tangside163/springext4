@@ -60,4 +60,10 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		return null;
 	}
 
+	public void update(User user) {
+		
+		this.getSession().update(user);
+		
+	}
+
 }

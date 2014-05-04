@@ -19,7 +19,6 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-
 @Table(name = "auth_user")
 @Entity
 public class User implements Serializable {
@@ -30,9 +29,9 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 5196555485281228861L;
 
 	@Id
-	@Column(name="userid")
-	@GenericGenerator(name="useridgenerator",strategy="native")
-	@GeneratedValue(generator="useridgenerator",strategy=GenerationType.IDENTITY /*主键由数据库自动生成*/)
+	@Column(name = "userid")
+	@GenericGenerator(name = "useridgenerator", strategy = "native")
+	@GeneratedValue(generator = "useridgenerator", strategy = GenerationType.IDENTITY /* 主键由数据库自动生成 */)
 	private long id;
 
 	@Column
@@ -47,15 +46,40 @@ public class User implements Serializable {
 	@Column(name = "phone")
 	private String phone;
 
-	@ManyToMany(cascade = { CascadeType.PERSIST },fetch=FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	@JsonIgnore
-	@JoinTable(name = "auth_user_role", joinColumns = { 
-			@JoinColumn(name = "fk_userid", referencedColumnName = "userid") },
-			inverseJoinColumns = { @JoinColumn(name = "fk_roleid", referencedColumnName = "roleid") })
+	@JoinTable(name = "auth_user_role", joinColumns = { @JoinColumn(name = "fk_userid", referencedColumnName = "userid") }, inverseJoinColumns = { @JoinColumn(name = "fk_roleid", referencedColumnName = "roleid") })
 	private List<Role> roles;
 
 	@Column
 	private String nickName;
+
+	/**
+	 * 锁定时间
+	 */
+	@Column
+	private long lockedAt;
+
+	/**
+	 * 密码错误次数
+	 */
+	private int errorTimes;
+
+	public long getLockedAt() {
+		return lockedAt;
+	}
+
+	public void setLockedAt(long lockedAt) {
+		this.lockedAt = lockedAt;
+	}
+
+	public int getErrorTimes() {
+		return errorTimes;
+	}
+
+	public void setErrorTimes(int errorTimes) {
+		this.errorTimes = errorTimes;
+	}
 
 	public List<Role> getRoles() {
 		return roles;

@@ -13,4 +13,6 @@ public interface UserDao {
 
 	public abstract User findByUsername(String username);
 
+	public abstract void update(User user);
+
 }

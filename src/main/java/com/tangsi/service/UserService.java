@@ -32,5 +32,9 @@ public class UserService {
 	public User getUserByUsername(String username) {
 		return this.userDao.findByUsername(username);
 	}
+
+	public void update(User user) {
+		this.userDao.update(user);
+	}
 	
 }
