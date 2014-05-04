@@ -24,7 +24,7 @@
 }
 
 .form-signin {
-  max-width: 600px;
+  max-width: 650px;
   padding: 15px;
   margin: 0 auto;
 }
@@ -40,6 +40,7 @@
   font-size: 16px;
   height: auto;
   padding: 10px;
+  margin-left:100px;
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
@@ -62,10 +63,16 @@
   border-top-right-radius: 0;
 }
 
-.form-signin button {
+.form-signin button,a  {
+   margin-left:100px;
   display:block;
   width:300px;
 }
+
+.form-signin span {
+	color:red;
+}
+
 	
 </style>
 
