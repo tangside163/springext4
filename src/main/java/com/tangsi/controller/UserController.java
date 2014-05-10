@@ -11,6 +11,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tangsi.log.annotation.Log;
@@ -60,20 +61,10 @@ public class UserController {
 	 * @return
 	 */
 	@Log("登陆")
-	@RequestMapping("/login")
+	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(@RequestParam("username") String username,
 			@RequestParam("password") String password,HttpServletRequest request,HttpServletResponse response) {
 		
-	/*	Cookie[] cookies = request.getCookies();
-    	if(cookies != null && cookies.length > 0) {
-    		for(Cookie cookie : cookies) {  //从cookie读取账户密码
-    			if(REMEMBER_COOKIE_NAME.equals(cookie.getName())) {
-    				 String content = cookie.getValue();
-    				 username = content.split("_")[0];
-    				 password = content.split("_")[1];
-    			}
-    		}
-    	}*/
 		
     	User user1 = this.userService.getUserByUsername(username);
 		if(user1 == null) {
@@ -81,7 +72,8 @@ public class UserController {
 			return "forward:/user/tologin";
 		}else {
 			
-			if(user1.getErrorTimes() != 0 && user1.getLockedAt() != 0) {
+			if(user1.getErrorTimes() == MAX_ERROR_TIMES && user1.getLockedAt() != 0 &&
+						(System.currentTimeMillis() - user1.getLockedAt() <= UNLOCK_INTERVAL_TIME)) {
 				request.setAttribute("usernameMsg", "该用户已被锁定，请联系管理员");
 				return "forward:/user/tologin";
 			}
@@ -94,7 +86,7 @@ public class UserController {
 					errorTimes++;
 				}
 				if(errorTimes == MAX_ERROR_TIMES) {
-					request.setAttribute("pwdMsg", "密码3次错误该用户已被锁定，请联系管理员");
+					request.setAttribute("pwdMsg", "密码3次错误,该用户已被锁定");
 				}else {
 					request.setAttribute("pwdMsg", "密码错误");
 				}
