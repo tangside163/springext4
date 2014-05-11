@@ -57,7 +57,7 @@
 		var initColor = function(){
 			var colors = {"CN-54":"#ff00ff"};
 			
-			$map./* .series.regions[0]. */setValues(colors);
+			$map.setValues(colors);
 		};
 	
 	</script>
