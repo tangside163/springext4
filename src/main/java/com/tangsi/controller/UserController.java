@@ -97,7 +97,7 @@ public class UserController {
 				
 				return "forward:/user/tologin";
 			}else {
-				
+				logger.info("登录成功");
 				//登录成功要解除锁定
 				if(user1.getErrorTimes() != 0 && user1.getLockedAt() != 0) {
 					long lockedAt = user1.getLockedAt();
@@ -121,7 +121,7 @@ public class UserController {
 	        	subject.login(token);
 	            return "main";
 	        }catch (AuthenticationException e) {
-	            logger.error("登录失败错误信息:"+e);
+	            logger.error("登录失败,错误信息:"+e);
 	            token.clear();
 	            return "redirect:/user/tologin";
 	        }
