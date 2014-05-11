@@ -14,6 +14,7 @@
 		<spring-version>3.2.6.RELEASE</spring-version>
 		<hibernate-version>4.0.0.Final</hibernate-version>
 		<servlet-version>2.5</servlet-version>
+        <junit-version>4.0</junit-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -181,8 +182,14 @@
 		</dependency>
 		<!-- end of Shiro security -->
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<finalName>sprintext4</finalName>
