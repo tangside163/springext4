@@ -23,7 +23,7 @@
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/user/tologin" />   <!-- 没有登录的用户请求需要登录的页面时自动跳转到登录页面 -->
 		<property name="successUrl" value="/main" /> <!-- 登录成功默认跳转页面 -->
-		<property name="unauthorizedUrl" value="/error" />  <!-- 没有权限默认跳转的页面 -->
+		<property name="unauthorizedUrl" value="/user/notauthrized" />  <!-- 没有权限默认跳转的页面 -->
 		<property name="filterChainDefinitions">
 			<value>
 				/user/tologin=anon   <!-- 指向登录页面的链接不用验证 -->
@@ -31,7 +31,8 @@
 				/user/toregiste=anon <!-- 注册不用验证  -->
 				/registe/save=anon   <!-- 注册提交 -->
 				/resources/**=anon   <!-- 资源文件不需要验证 -->
-				/** = authc,roles[超级管理员]         <!-- 其余所有链接都需要验证 -->  
+                /user/notauthrized=anon
+				/** = authc         <!-- 其余所有链接都需要验证,基于角色的权限认证 -->
 			</value>
 		</property>
 	</bean>
@@ -52,8 +53,8 @@
 		depends-on="lifecycleBeanPostProcessor" >
 		<property name="proxyTargetClass" value="true"></property>	 
 	</bean>  -->
-	<bean
+	<!--<bean
 		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
-	</bean>
+	</bean>-->
 </beans>
