@@ -1,4 +1,4 @@
-package com.tangsi.pojo;
+package com.tangsi.user.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

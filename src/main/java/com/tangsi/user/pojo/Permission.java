@@ -2,27 +2,18 @@
  * tangsi	
  * 2014年4月13日
  */
-package com.tangsi.pojo;
+package com.tangsi.user.pojo;
 
 /**
  * @author Administrator
  *
  */
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "auth_permission")

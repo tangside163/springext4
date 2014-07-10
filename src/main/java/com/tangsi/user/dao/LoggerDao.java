@@ -1,8 +1,8 @@
-package com.tangsi.dao;
+package com.tangsi.user.dao;
+
+import com.tangsi.user.pojo.Logger;
 
 import java.util.List;
-
-import com.tangsi.pojo.Logger;
 
 public abstract interface LoggerDao {
 

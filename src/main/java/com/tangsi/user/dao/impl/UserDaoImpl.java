@@ -1,12 +1,11 @@
-package com.tangsi.dao.impl;
+package com.tangsi.user.dao.impl;
 
-import java.util.List;
-
+import com.tangsi.user.dao.UserDao;
+import com.tangsi.user.pojo.User;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import com.tangsi.dao.UserDao;
-import com.tangsi.pojo.User;
+import java.util.List;
 
 @Repository("userDaoImpl")
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {

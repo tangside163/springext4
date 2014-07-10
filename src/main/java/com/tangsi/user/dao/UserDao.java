@@ -1,6 +1,6 @@
-package com.tangsi.dao;
+package com.tangsi.user.dao;
 
-import com.tangsi.pojo.User;
+import com.tangsi.user.pojo.User;
 
 public interface UserDao {
 	

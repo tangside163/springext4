@@ -1,24 +1,11 @@
-package com.tangsi.pojo;
+package com.tangsi.user.pojo;
 
-
-import java.io.Serializable;
-import java.util.Collection;
-
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.GenericGenerators;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "auth_role")
@@ -39,13 +26,13 @@ public class Role implements Serializable{
     @ManyToMany(mappedBy = "roles",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     @Basic(fetch = FetchType.LAZY)
     private Collection<User> users;
-    
+
     @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name = "auth_role_permission", 
-           joinColumns = { @JoinColumn(name = "fk_roleid",referencedColumnName="roleid") }, 
+    @JoinTable(name = "auth_role_permission",
+           joinColumns = { @JoinColumn(name = "fk_roleid",referencedColumnName="roleid") },
            inverseJoinColumns = { @JoinColumn(name = "fk_pmsid",referencedColumnName="pmsid") })
     private Collection<Permission> pmss;
-    
+
     public Long getId() {
         return id;
     }

@@ -1,10 +1,9 @@
-package com.tangsi.service;
+package com.tangsi.user.service;
 
+import com.tangsi.user.dao.UserDao;
+import com.tangsi.user.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.tangsi.dao.UserDao;
-import com.tangsi.pojo.User;
 
 @Service("userService")
 public class UserService {

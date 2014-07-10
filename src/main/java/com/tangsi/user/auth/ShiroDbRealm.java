@@ -1,15 +1,9 @@
-package com.tangsi.auth;
+package com.tangsi.user.auth;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.shiro.authc.AccountException;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import com.tangsi.user.pojo.Role;
+import com.tangsi.user.pojo.User;
+import com.tangsi.user.service.UserService;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -18,9 +12,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.tangsi.pojo.Role;
-import com.tangsi.pojo.User;
-import com.tangsi.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 权限验证

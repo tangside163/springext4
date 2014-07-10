@@ -1,16 +1,15 @@
 /**
  * tangsi	
- * 2014Äê3ÔÂ29ÈÕ
+ * 2014ï¿½ï¿½3ï¿½ï¿½29ï¿½ï¿½
  */
-package com.tangsi.dao.impl;
+package com.tangsi.user.dao.impl;
 
-import java.util.List;
-
+import com.tangsi.user.dao.LoggerDao;
+import com.tangsi.user.pojo.Logger;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
-import com.tangsi.dao.LoggerDao;
-import com.tangsi.pojo.Logger;
+import java.util.List;
 
 /**
  * @author Administrator

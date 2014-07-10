@@ -1,14 +1,13 @@
 /**
  * tangsi	
- * 2014Äê3ÔÂ29ÈÕ
+ * 2014ï¿½ï¿½3ï¿½ï¿½29ï¿½ï¿½
  */
-package com.tangsi.service;
+package com.tangsi.user.service;
 
+import com.tangsi.user.dao.LoggerDao;
+import com.tangsi.user.pojo.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.tangsi.dao.LoggerDao;
-import com.tangsi.pojo.Logger;
 
 /**
  * @author Administrator
@@ -22,8 +21,8 @@ public class LoggerService {
 	
 	public Logger addLogger(Logger logger) {
 		this.loggerDao.save(logger);
-		System.out.println("ÈÕÖ¾Ö÷¼ü"+logger.getId());
-		return logger;//·µ»Ø»ñµÃÖ÷¼üµÄÈÕÖ¾¼ÇÂ¼
+		System.out.println("ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½"+logger.getId());
+		return logger;//ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Â¼
 	}
 	
 }

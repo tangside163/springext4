@@ -1,15 +1,14 @@
-package com.tangsi.log;
+package com.tangsi.user.log;
 
-import java.lang.reflect.Method;
-
+import com.tangsi.user.log.annotation.Log;
+import com.tangsi.user.pojo.Logger;
+import com.tangsi.user.service.LoggerService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tangsi.log.annotation.Log;
-import com.tangsi.pojo.Logger;
-import com.tangsi.service.LoggerService;
+import java.lang.reflect.Method;
 
 public class LogHandler {
 

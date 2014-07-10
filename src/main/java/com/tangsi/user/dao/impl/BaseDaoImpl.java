@@ -1,4 +1,4 @@
-package com.tangsi.dao.impl;
+package com.tangsi.user.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
