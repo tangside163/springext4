@@ -1,21 +1,25 @@
-package com.tangsi.user.controller;
+package com.tangsi.controller;
 
-import com.tangsi.user.log.annotation.Log;
-import com.tangsi.user.pojo.User;
-import com.tangsi.user.service.UserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.tangsi.log.annotation.Log;
+import com.tangsi.pojo.User;
+import com.tangsi.service.UserService;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/user")
@@ -149,10 +153,33 @@ public class UserController {
 		return "redirect:/user/tologin";
 		
 	}
-	
+
+    @RequiresRoles("superadmin")
 	@RequestMapping("/test")
 	public String test() {
-		return "register";
+        return "register";
 	}
+
+    @RequestMapping("/notauthrized")
+    public String notauthrizedView() {
+        return "notauthrized";
+    }
+
+
+    /**
+     * 对于与shiro整合，基于注解的角色赋权，
+     * 如果用户权限不足，捕捉UnauthorizedException，转发到权限不足页面
+     * @param request
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({UnauthorizedException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ModelAndView processUnauthenticatedException(NativeWebRequest request, UnauthorizedException e) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("exception",e);
+        model.setViewName("notauthrized");
+        return model;
+    }
 
 }

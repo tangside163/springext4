@@ -5,77 +5,26 @@
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>登陆成功</title>
-	<link href="${base}/resources/js/jquerymap/jquery-jvectormap-1.2.2.css" type="text/css" rel="stylesheet" media="screen"/>
-	<script src="${base}/resources/js/jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="${base}/resources/js/jquerymap/jquery-jvectormap-1.2.2.min.js"></script>
-	<script type="text/javascript" src="${base}/resources/js/jquerymap/jquery-map-ch-en.js"></script>
-	
-	
-	<script type="text/javascript">
-		
-		var $map;
-	
-		var initMapSize = function(){
-			 $map = $("#ch-map");
-			$map.width($(document).width());
-			$map.height($(document).height());
-		};
-		
-		
-		$(document).ready(function(){
-			
-			initMapSize();
-			$map = $("#ch-map").vectorMap({
-				map:'cn_mill_en',
-				color: "#ff00ff", //"#B4B4B4" //地图颜色 ,
-				onRegionOver: function(event, code){
-					$map.css({cursor:'pointer'});
-				},
-				//鼠标移出省份区域，改回鼠标状态
-			　　　　onRegionOut: function(event, code){
-			　　　　　　$map.css({cursor:'auto'});
-			　　　　},
-			    onRegionClick: function(event, code){
-			    	alert(code);
-			    },
-			  //显示各地区名称和活动
-			　　onRegionLabelShow: function (event, label, code) {
-				//label.html("<p style='color:red;background-color:green;'>"+code+"</p>");
-			　　},
-			  series: {
-			      regions: [{
-			        attribute: 'fill'
-			      }]
-			  }
-			}); 
-	
-			initColor();
-			
-		});
-		
-		var initColor = function(){
-			var colors = {"CN-54":"#ff00ff"};
-			
-			$map.setValues(colors);
-		};
-	
-	</script>
-	
-	<style type="text/css">
-		 /* #ch-map {
-			width:400px;
-			height:400px;
-		} */
-	</style>
-	
-	</head>
+	<title>欢迎来到tangsi的娱乐桌面平台</title>
+    <link rel="stylesheet" href="${base}/resources/js/ext4/css/ext-all.css"/>
+    <link rel="stylesheet" href="${base}/resources/js/desktop/css/desktop.css"/>
+    <script src="${base}/resources/js/ext4/ext-all.js"></script>
+    <script type="text/javascript">
+        Ext.Loader.setPath({
+            'Ext.ux.desktop': '${base}/resources/js/desktop/js',
+            MyDesktop: '${base}/resources/js/desktop'
+        });
+
+        Ext.require('MyDesktop.App');
+
+        var myDesktopApp;
+        Ext.onReady(function () {
+            myDesktopApp = new MyDesktop.App();
+        });
+    </script>
+    </head>
 	
 	<body id="home">
-		<div>
-			<div id="ch-map"></div>
-		</div>
-		
-		
+
 	</body>
 </html>
