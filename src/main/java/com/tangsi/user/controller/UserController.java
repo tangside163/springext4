@@ -1,8 +1,11 @@
-package com.tangsi.controller;
+package com.tangsi.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tangsi.user.log.annotation.Log;
+import com.tangsi.user.pojo.User;
+import com.tangsi.user.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -15,9 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.tangsi.log.annotation.Log;
-import com.tangsi.pojo.User;
-import com.tangsi.service.UserService;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
