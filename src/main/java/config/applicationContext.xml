@@ -53,7 +53,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.tangsi.pojo"></property>
+		<property name="packagesToScan" value="com.tangsi.user.pojo"></property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -88,7 +88,7 @@
 	<!-- 基于AOP的声明式事务 -->
 	<aop:config expose-proxy="true" proxy-target-class="true">
 		<aop:pointcut id="aopPointcut"
-			expression="execution(* com.tangsi.service.*.*(..))" />
+			expression="execution(* com.tangsi.user.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="aopPointcut" />
 	</aop:config>
 	
@@ -119,7 +119,7 @@
   <!-- 定时任务quartz配置 -->
   <!-- quartz-2.x的配置 -->
   <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法,更加灵活-->
-	<bean id="taskJob" class="com.tangsi.schedule.task.MyFirstSchedulerTask"/>
+	<bean id="taskJob" class="com.tangsi.user.schedule.task.MyFirstSchedulerTask"/>
 	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 	    <property name="group" value="job_work"/>
 	    <property name="name" value="job_work_name"/>

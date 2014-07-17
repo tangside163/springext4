@@ -12,7 +12,7 @@
 	<mvc:annotation-driven>
 	</mvc:annotation-driven>
 
-	<context:component-scan base-package="com.tangsi.controller">
+	<context:component-scan base-package="com.tangsi.user.controller">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
@@ -29,12 +29,12 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:default-servlet-handler />
 
-	<bean id="logBean" class="com.tangsi.log.LogHandler"></bean>
+	<bean id="logBean" class="com.tangsi.user.log.LogHandler"></bean>
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	<!-- 基于AOP的记写日志 -->
 	<aop:config proxy-target-class="true"><!-- 强制使用cglib代理，如果不设置，将默认使用jdk的代理，但是jdk的代理是基于接口的 -->
 		<aop:aspect id="logAspect" ref="logBean">
-			<aop:pointcut expression="execution(* com.tangsi.controller..*(..))"
+			<aop:pointcut expression="execution(* com.tangsi.user.controller..*(..))"
 				id="logPoint" />
 			<aop:before method="logBefore" pointcut-ref="logPoint" />
 		</aop:aspect>

@@ -16,7 +16,7 @@
 	</bean>
 
 	<!-- 項目自定义的Realm -->
-	<bean id="shiroDbRealm" class="com.tangsi.auth.ShiroDbRealm"></bean>
+	<bean id="shiroDbRealm" class="com.tangsi.user.auth.ShiroDbRealm"></bean>
 
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
