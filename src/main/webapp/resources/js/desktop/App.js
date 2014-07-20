@@ -68,7 +68,7 @@ Ext.define('MyDesktop.App', {
                 ]
             }),
 
-            wallpaper: base+'/resources/js/desktop/wallpapers/Blue-Sencha.jpg',
+            wallpaper: base+'/resources/image/wallpapers/scenery (1).jpg',
             wallpaperStretch: false
         });
     },

@@ -101,14 +101,20 @@ Ext.define('MyDesktop.Settings', {
                     expanded: true,
                     children:[
                         { text: "None", iconCls: '', leaf: true },
-                        child('Blue-Sencha.jpg'),
-                        child('Dark-Sencha.jpg'),
-                        child('Wood-Sencha.jpg'),
-                        child('blue.jpg'),
-                        child('desk.jpg'),
-                        child('desktop.jpg'),
-                        child('desktop2.jpg'),
-                        child('sky.jpg')
+                        child('scenery (1).jpg'),
+                        child('scenery (2).jpg'),
+                        child('scenery (3).jpg'),
+                        child('scenery (4).jpg'),
+                        child('scenery (5).jpg'),
+                        child('scenery (6).jpg'),
+                        child('scenery (7).jpg'),
+                        child('scenery (8).jpg'),
+                        child('scenery (9).jpg'),
+                        child('scenery (10).jpg'),
+                        child('scenery (11).jpg'),
+                        child('scenery (12).jpg'),
+                        child('scenery (13).jpg'),
+                        child('scenery (14).jpg')
                     ]
                 }
             })
@@ -140,7 +146,7 @@ Ext.define('MyDesktop.Settings', {
         var me = this;
 
         if (record.data.img) {
-            me.selected = base+ '/resources/js/desktop/wallpapers/' + record.data.img;
+            me.selected = base+ '/resources/image/wallpapers/' + record.data.img;
         } else {
             me.selected = Ext.BLANK_IMAGE_URL;
         }
