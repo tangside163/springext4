@@ -1,16 +1,15 @@
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import com.tangsi.user.pojo.User;
+import com.tangsi.user.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.tangsi.pojo.User;
-import com.tangsi.service.UserService;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ApplicationContextTest {
 

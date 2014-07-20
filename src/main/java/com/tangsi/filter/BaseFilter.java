@@ -1,4 +1,4 @@
-package com.tangsi.user.filter;
+package com.tangsi.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
