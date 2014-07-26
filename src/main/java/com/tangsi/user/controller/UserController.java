@@ -133,10 +133,15 @@ public class UserController {
 
 	@RequestMapping("/toregiste")
 	public String toRegiste() {
-		return "register";
+		return "registe";
 	}
-	
-	
+
+    @RequestMapping("registe")
+	public String saveRegiste() {
+        return null;
+    }
+
+
 	@Log("注册")
 	@RequestMapping("/registe/save")
 	public String saveUser(@RequestParam("username") String username,
