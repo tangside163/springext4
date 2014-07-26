@@ -14,6 +14,12 @@
 		<param-value>classpath:config/log4j.properties</param-value>
 	</context-param>
 
+    <!-- 解决war包部署是的log不能设置system property问题 -->
+    <context-param>
+        <param-name>log4jExposeWebAppRoot</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
