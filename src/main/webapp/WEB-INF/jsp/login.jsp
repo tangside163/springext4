@@ -9,7 +9,6 @@
 <!-- Bootstrap -->
 <link rel="stylesheet"
 	href="${base}/resources/js/bootstrap3/css/bootstrap.css">
-
 <script src="${base}/resources/js/jquery/jquery-1.11.0.min.js"
 	type="text/javascript"></script>
 <script type="text/javascript"
@@ -119,8 +118,8 @@
 	<div class="container">
 
       <form class="form-signin" role="form" method="post" action="${base}/user/login">
-       <input id="username" type="text" name="username" class="form-control" placeholder="Username" required autofocus><span>${usernameMsg}</span>
-        <input id="password" type="password" name="password" class="form-control" placeholder="Password" required><span>${pwdMsg}</span>
+       <input id="username" type="text" name="username" class="form-control" placeholder="username" required autofocus><span>${usernameMsg}</span>
+        <input id="password" type="password" name="password" class="form-control" placeholder="password" required><span>${pwdMsg}</span>
         <!-- 
         <label class="checkbox">
           <input  id="remember-me" type="checkbox" value="yes" name="remember-me"> Remember me
